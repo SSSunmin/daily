@@ -1,3 +1,4 @@
+import { FaAngleRight } from "react-icons/fa6";
 
 const Profile = () => {
     return (
@@ -11,19 +12,19 @@ const Profile = () => {
                 <button className={' text-[#A9A9B2] border rounded-[25px] px-[12px]'}>로그아웃</button>
             </div>
             <div>
-                <div>마이페이지</div>
+                <div className={'flex justify-between my-[10px] cursor-pointer'}><p>마이페이지</p> <FaAngleRight /></div>
                 <div className={'flex justify-between'}>
-                    <div>
+                    <div className={'text-[15px] text-[#3F3F49]'}>
                         <p>나의 일기</p>
-                        <p>104개</p>
+                        <p className={'font-semibold cursor-pointer'}>104개</p>
                     </div>
-                    <div>
-                        <p>나의 일기</p>
-                        <p>104개</p>
+                    <div className={'text-[15px] text-[#3F3F49]'}>
+                        <p>남의 일기 글</p>
+                        <p className={'font-semibold cursor-pointer'}>104개</p>
                     </div>
-                    <div>
-                        <p>나의 일기</p>
-                        <p>104개</p>
+                    <div className={'text-[15px] text-[#3F3F49]'}>
+                        <p>남의 일기 댓글</p>
+                        <p className={'font-semibold cursor-pointer'}>104개</p>
                     </div>
                 </div>
             </div>

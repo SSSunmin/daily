@@ -3,7 +3,7 @@ import Header from "./Header.tsx";
 
 const Layout = ({children}:{children:React.ReactNode}) => {
     return (
-        <div className={"w-screen h-screen bg-[#F8F9FB]"}>
+        <div className={"w-full h-screen"}>
             <Header/>
             {children}
         </div>

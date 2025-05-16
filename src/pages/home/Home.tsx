@@ -30,7 +30,7 @@ const Home = () => {
 
     return (
         <Layout >
-            <main className={"h-full flex px-[410px] pt-[116px]"}>
+            <main className={"h-full flex px-[410px] pt-[116px] bg-[#F8F9FB]"}>
                 <section className={"mr-[40px]"}>
                     <div className={"flex justify-between items-center text-[20px] font-bold p-[10px]"}>
                         <p>🔥 토픽 베스트</p>
