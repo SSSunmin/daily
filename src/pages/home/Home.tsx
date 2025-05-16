@@ -1,53 +1,51 @@
-import Header from "../../components/Header.tsx";
+import Layout from "../../components/Layout.tsx";
+import Login from "./Login.tsx";
+import {useNavigate} from "react-router-dom";
+import Profile from "../myPage/Profile.tsx";
+import {useState} from "react";
+
+const DUMMY_ITEM =[
+    {"id":"0","title":'제목입니다.', "creator":'작성자명'},
+    {"id":"1","title":'제목입니다.', "creator":'작성자명'},
+    {"id":"2","title":'제목입니다.', "creator":'작성자명'},
+    {"id":"3","title":'제목입니다.', "creator":'작성자명'},
+    {"id":"4","title":'제목입니다.', "creator":'작성자명'},
+    {"id":"5","title":'제목입니다.', "creator":'작성자명'},
+    {"id":"6","title":'제목입니다.', "creator":'작성자명'},
+    {"id":"7","title":'제목입니다.', "creator":'작성자명'},
+    {"id":"8","title":'제목입니다.', "creator":'작성자명'},
+    {"id":"9","title":'제목입니다.', "creator":'작성자명'},
+
+]
+const TopicItem = ({title, creator, id}:{title:string, creator:string, id:string})=>{
+    return <div className={"flex justify-between px-[10px] py-[16px] rounded-[8px] cursor-pointer hover:bg-[#EEF1F0] "} onClick={()=>console.log(id)}>
+        <p className={'text-[#3F3F49]'}>{title}</p>
+        <p className={'text-[#A9A9B2]'}>{creator}</p>
+    </div>
+}
 
 const Home = () => {
-    return (
-        <div className={"w-full h-full "} >
-            <Header/>
-            <main className={"h-full px-[160px] pt-[10px] "}>
-                <h2 className={"text-[20px] font-bold"}>오늘의 하이라이트</h2>
-                <section className={"flex items-center justify-between"}>
+    const [isLogin, setIsLogin] = useState(true);
+    const navigate = useNavigate();
 
-                    <div className={"w-[320px] h-[400px] shadow-md bg-white rounded-xl p-[16px]"}>
-                        <div>
-                            <img
-                                src="https://picsum.photos/200/300"
-                                alt="Highlight"
-                            />
-                            <p>가장 인기 있는 게시물의 간단한 설명이 여기에 표시됩니다.</p>
-                        </div>
+    return (
+        <Layout >
+            <main className={"h-full flex px-[410px] pt-[116px]"}>
+                <section className={"mr-[40px]"}>
+                    <div className={"flex justify-between items-center text-[20px] font-bold p-[10px]"}>
+                        <p>🔥 토픽 베스트</p>
+                        <p className={'text-[16px] cursor-pointer'} onClick={()=>navigate('/someone-diary')}>더보기 &gt; </p>
                     </div>
-                    <div className={"w-[320px] h-[400px] shadow-md bg-white rounded-xl p-[16px]"}>
-                        <div>
-                            <img
-                                src="https://picsum.photos/200/300"
-                                alt="Highlight"
-                            />
-                            <p>가장 인기 있는 게시물의 간단한 설명이 여기에 표시됩니다.</p>
-                        </div>
-                    </div>
-                    <div className={"w-[320px] h-[400px] shadow-md bg-white rounded-xl p-[16px]"}>
-                        <div>
-                            <img
-                                src="https://picsum.photos/200/300"
-                                alt="Highlight"
-                            />
-                            <p>가장 인기 있는 게시물의 간단한 설명이 여기에 표시됩니다.</p>
-                        </div>
-                    </div>
-                    <div className={"w-[320px] h-[400px] shadow-md bg-white rounded-xl p-[16px]"}>
-                        <div>
-                            <img
-                                src="https://picsum.photos/200/300"
-                                alt="Highlight"
-                            />
-                            <p>가장 인기 있는 게시물의 간단한 설명이 여기에 표시됩니다.</p>
-                        </div>
-                    </div>
+                    <ul className={"bg-white w-[780px] p-[10px] flex flex-col gap-[10px] rounded-[16px] border border-[#E6E6E6]"}>
+                        {DUMMY_ITEM.map((item)=><TopicItem key={item.id} {...item}/>)}
+                    </ul>
+                </section>
+                <section>
+                    {isLogin?  <Profile/>:<Login/>}
                 </section>
 
             </main>
-        </div>
+        </Layout>
     );
 };
 

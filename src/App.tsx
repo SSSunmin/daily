@@ -1,13 +1,11 @@
-import Home from "./pages/home/Home.tsx";
-import Layout from "./components/Layout.tsx";
+import Router from "./components/Router.tsx";
 
 function App() {
 
   return (
-      <Layout>
-          <Home/>
-      </Layout>
-
+      <>
+          <Router/>
+      </>
   )
 }
 

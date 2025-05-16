@@ -8,7 +8,9 @@ export default {
         darkGreen:"#3a5a40",
         green:"#588157",
         lightGreen:'#a3b18a',
-        paleGreen:"#dad7cd"
+        paleGreen:"#dad7cd",
+        naturalDarkest:"#25252F",
+        naturalDark:"#646371"
       }
     },
   },
