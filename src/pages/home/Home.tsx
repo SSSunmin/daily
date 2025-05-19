@@ -25,7 +25,7 @@ const TopicItem = ({title, creator, id}:{title:string, creator:string, id:string
 }
 
 const Home = () => {
-    const [isLogin, setIsLogin] = useState(true);
+    const [isLogin, setIsLogin] = useState(false);
     const navigate = useNavigate();
 
     return (
@@ -41,9 +41,8 @@ const Home = () => {
                     </ul>
                 </section>
                 <section>
-                    {isLogin?  <Profile/>:<Login/>}
+                    {isLogin?  <Profile/>:<Login handleLogin={()=>setIsLogin(true)}/>}
                 </section>
-
             </main>
         </Layout>
     );

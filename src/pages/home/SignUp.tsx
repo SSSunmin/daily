@@ -1,0 +1,61 @@
+import {FormEvent, useState} from 'react';
+import {IoMdClose} from "react-icons/io";
+
+const SignUp = ({closeModal}:{closeModal:()=>void}) => {
+    const [id, setId] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+
+    const handleSubmit = (e:FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const data = {id, email, password, confirmPassword};
+        console.log(data);
+    }
+
+
+    return (
+        <form className={`w-[400px] flex flex-col justify-center align-center rounded-[16px] bg-white border border-[#E6E6E6]`} onSubmit={handleSubmit}>
+            <section className={'w-full flex items-center justify-between px-[24px] py-[16px] border-b border-[#E1E5E9]'}>
+                <IoMdClose className={'cursor-pointer'} size={24} onClick={closeModal}/>
+                <p className={'text-[20px] text-[#3F3F49] font-bold tracking-[-0.6px]'}>회원가입</p>
+                <button type={'submit'} className={'flex justify-center items-center px-[24px] h-[50px] bg-[#2BC09D] text-white font-bold rounded-[50px]'} >
+                    <p className={'text-[16px] font-bold leading-[-0.48px]'}>가입</p>
+                </button>
+            </section>
+            <div className={`flex justify-center flex-col gap-[10px] px-[15px] py-[20px]`}>
+
+                <label >
+                    <p className={'text-[13px] font-medium'}>이메일</p>
+                    <div className={'border border-[#A9A9B2] h-[40px] flex items-center justify-center px-[10px] rounded-[6px]'}>
+                        <input type={'email'} required className={'w-full outline-0 '} placeholder={"이메일 입력"} value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                    </div>
+                </label>
+
+                <label >
+                    <p className={'text-[13px] font-medium'}>아이디</p>
+                    <div className={'border border-[#A9A9B2] h-[40px] flex items-center justify-center px-[10px] rounded-[6px]'}>
+                        <input required className={'w-full outline-0 '} placeholder={"아이디 입력"} value={id} onChange={(e)=>setId(e.target.value)}/>
+                    </div>
+                </label>
+                
+                <label >
+                    <p className={'text-[13px] font-medium'}>비밀번호</p>
+                    <div className={'border border-[#A9A9B2] h-[40px] flex items-center justify-center px-[10px] rounded-[6px]'}>
+                        <input required type={'password'} className={'w-full outline-0 '} placeholder={"비밀번호 입력"} value={password} onChange={(e)=>setPassword(e.target.value)}/>
+                    </div>
+                </label>
+                
+                <label >
+                    <p className={'text-[13px] font-medium'}>비밀번호 확인</p>
+                    <div className={'border border-[#A9A9B2] h-[40px] flex items-center justify-center px-[10px] rounded-[6px]'}>
+                        <input required type={'password'}  className={'w-full outline-0 '} placeholder={"비밀번호 확인"} value={confirmPassword} onChange={(e)=>setConfirmPassword(e.target.value)}/>
+                    </div>
+                </label>
+
+            </div>
+        </form>
+    );
+};
+
+export default SignUp;
