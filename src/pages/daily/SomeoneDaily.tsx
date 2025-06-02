@@ -1,57 +1,60 @@
 import Layout from "../../components/Layout.tsx";
 import DailyCard from "./DailyCard.tsx";
 import Profile from "../myPage/Profile.tsx";
-const DUMMY_DAILY =[
-    {
-        "id":'7',
-        "title":'제목입니다.',
-        "text":'  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque euismod, urna eu tincidunt consectetur, nisi nisl aliquam nunc, eget aliquam massa nisi nec velit.',
-        "image":'https://spyne-static.s3.amazonaws.com/AI-tools/image-enhancer-after.webp'
-    },
-    {
-        "id":'8',
-        "title":'제목입니다.',
-        "text":'상세 내용',
-        "image":'https://spyne-static.s3.amazonaws.com/AI-tools/image-enhancer-after.webp'
-    },
-    {
-        "id":'9',
-        "title":'제목입니다.',
-        "text":'상세 내용',
-        "image":'https://spyne-static.s3.amazonaws.com/AI-tools/image-enhancer-after.webp'
-    },
-    {
-        "id":'10',
-        "title":'제목입니다.',
-        "text":'상세 내용',
-        "image":'https://spyne-static.s3.amazonaws.com/AI-tools/image-enhancer-after.webp'
-    },
-    {
-        "id":'11',
-        "title":'제목입니다.',
-        "text":'상세 내용',
-        "image":'https://spyne-static.s3.amazonaws.com/AI-tools/image-enhancer-after.webp'
-    },
-    {
-        "id":'12',
-        "title":'제목입니다.',
-        "text":'상세 내용',
-        "image":'https://spyne-static.s3.amazonaws.com/AI-tools/image-enhancer-after.webp'
-    },
-]
+import Login from "../home/Login.tsx";
+import {useEffect, useState} from "react";
+import {Get} from "../../axios.ts";
+import {DailyContentDto,DailyListDto} from "./MyDaily.tsx";
+import Pagination from "../../components/Pagination.tsx";
+
 
 const SomeoneDaily = () => {
+    const [isLogin, setIsLogin] = useState(false);
+    const [page, setPage] = useState(0);
+    const [dailyList, setDailyList] = useState<DailyContentDto[]>([]);
+    const [totalPages, setTotalPages] = useState<number>(0);
+
+    const getDiaryList = async ()=>{
+        const res =await Get<{data:DailyListDto}>(`/v1/diary?isShare=true&size=10&page=${page}`)
+        setDailyList(res.data.content)
+        setTotalPages(res.data.totalPages)
+    }
+
+    useEffect(() => {
+        getDiaryList()
+    },[page])
+
+    useEffect(() => {
+        const isLogin = window.localStorage.getItem('at');
+        if(isLogin){
+            setIsLogin(true);
+        }else{
+            setIsLogin(false);
+        }
+    }, []);
     return (
         <Layout>
-            <main className={"flex px-[410px] pt-[116px] pb-[36px] bg-[#F8F9FB]"}>
-                <section className={"mr-[40px]"}>
-                    <div className={"w-[780px] grid grid-cols-2 gap-[16px]"}>
-                        {DUMMY_DAILY.map((item)=><DailyCard id={item.id} image={item.image} title={item.title} text={item.text}/>)}
-                    </div>
-                </section>
-                <section>
-                    <Profile/>
-                </section>
+            <main className={"h-full px-[410px] pt-[116px] pb-[36px] bg-[#F8F9FB]"}>
+                <div className={'flex h-[calc(100%-50px)]'}>
+                    <section className={"mr-[40px]"}>
+                        <div className={"w-[780px] grid grid-cols-2 gap-[16px]"}>
+                            {dailyList.map((item)=><DailyCard id={item.diaryPid} image={item.diaryFile.srcPath} title={item.title} text={item.contents}/>)}
+                        </div>
+                    </section>
+                    <section>
+                        {isLogin?  <Profile/>:<Login handleLogin={()=>setIsLogin(true)}/>}
+                    </section>
+                </div>
+
+                <div className={'mt-auto'}>
+                    {
+                        dailyList.length > 0 &&  <Pagination
+                            currentPage={page}
+                            totalPages={totalPages}
+                            onPageChange={(page) => setPage(page)}
+                        />
+                    }
+                </div>
             </main>
         </Layout>
     );

@@ -1,11 +1,19 @@
 import {useState} from "react";
 import Modal from "../../components/Modal.tsx";
 import SignUp from "./SignUp.tsx";
+import {login} from "../../service/auth.ts";
 
 const Login = ({handleLogin}:{handleLogin:()=>void}) => {
     const [showSignUp, setShowSignUp] = useState<boolean>(false);
+    const [id, setId] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
 
-    const onClickLogin =()=>{
+    const onClickLogin =async ()=>{
+        const data = {
+            "loginId":id,
+            "password": password,
+        }
+        await login(data)
         handleLogin()
     }
 
@@ -14,10 +22,10 @@ const Login = ({handleLogin}:{handleLogin:()=>void}) => {
             <div className={`w-[280px] py-[32px] flex flex-col justify-center align-center rounded-[24px] bg-white border border-[#E6E6E6]`}>
                 <div className={`flex justify-center flex-col gap-[10px] px-[15px] py-[20px]`}>
                     <div className={'border border-[#A9A9B2] h-[40px] flex items-center justify-center px-[10px] rounded-[6px]'}>
-                        <input className={'w-full outline-0 '} placeholder={"아이디 입력"}/>
+                        <input className={'w-full outline-0 '} placeholder={"아이디 입력"} value={id} onChange={(e)=>setId(e.target.value)}/>
                     </div>
                     <div className={'border border-[#A9A9B2] h-[40px] flex items-center justify-center px-[10px] rounded-[6px]'}>
-                        <input className={'w-full outline-0 '} placeholder={"비밀번호 입력"}/>
+                        <input className={'w-full outline-0 '} placeholder={"비밀번호 입력"} value={password} onChange={(e)=>setPassword(e.target.value)}/>
                     </div>
                     <button className={'flex justify-center items-center w-full h-[50px] bg-[#2BC09D] text-white font-bold rounded-[50px]'} onClick={onClickLogin} >
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">

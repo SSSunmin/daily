@@ -2,7 +2,7 @@ import Layout from "../../components/Layout.tsx";
 import Login from "./Login.tsx";
 import {useNavigate} from "react-router-dom";
 import Profile from "../myPage/Profile.tsx";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 const DUMMY_ITEM =[
     {"id":"0","title":'제목입니다.', "creator":'작성자명'},
@@ -27,6 +27,15 @@ const TopicItem = ({title, creator, id}:{title:string, creator:string, id:string
 const Home = () => {
     const [isLogin, setIsLogin] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const isLogin = window.localStorage.getItem('at');
+        if(isLogin){
+            setIsLogin(true);
+        }else{
+            setIsLogin(false);
+        }
+    }, []);
 
     return (
         <Layout >

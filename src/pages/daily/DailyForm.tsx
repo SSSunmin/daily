@@ -1,9 +1,10 @@
 import { IoMdClose } from "react-icons/io";
 import {ChangeEvent, useState} from "react";
+import {Post} from "../../axios.ts";
 
 const DailyForm = ({closeModal}:{closeModal:()=>void}) => {
     const [title, setTitle] = useState("");
-    const [category, setCategory] = useState<string[]>([]);
+    const [isShared, setIsShared] = useState(false);
     const [contents, setContents] = useState("");
     const [file, setFile] = useState<File>();
     const [fileName, setFileName] = useState("");
@@ -14,20 +15,42 @@ const DailyForm = ({closeModal}:{closeModal:()=>void}) => {
             setFileName(e.target.files[0].name);
         }
     }
-    const handleCategoryChange = (target:string) => {
-        let tmp
-        if(category.includes(target)){
-            tmp = [...category].filter((item)=> item !== target);
 
-        }else{
-            tmp = [...category, target]
+    const handleIsSharedChange = (value: boolean) => {
+        setIsShared(value);
+    };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const form = new FormData();
+        form.append(
+            "diary",
+            new Blob(
+                [
+                    JSON.stringify({
+                        title,
+                        contents,
+                        isShare: isShared,
+                    }),
+                ],
+                { type: "application/json" }
+            )
+        );
+        if (file) {
+            form.append("image", file);
         }
-        setCategory(tmp)
-    }
-    const handleSubmit = (e: React. FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        console.log(title, category, contents, file)
-    }
+        try {
+            const res = await Post("/v1/diary", form, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+            console.log(res);
+            closeModal();
+        } catch (err) {
+            console.error(err);
+            alert("등록에 실패했습니다.");
+        }
+    };
+
     return (
         <form className={'w-[800px] h-[775px] bg-white rounded-[16px]'} onSubmit={(e)=>handleSubmit(e)}>
             <section className={'w-full flex items-center justify-between px-[24px] py-[16px] border-b border-[#E1E5E9]'}>
@@ -38,10 +61,29 @@ const DailyForm = ({closeModal}:{closeModal:()=>void}) => {
                 </button>
             </section>
             <section className={'px-[24px] py-[16px] border-b border-[#E1E5E9]'}>
-                <input className={'mr-[5px]'} id={'myDaily'} type={'checkbox'} onChange={()=>handleCategoryChange('myDaily')}/>
-                <label className={'text-[20px] text-[#3F3F49] font-bold mr-[16px]'} htmlFor={'myDaily'}>나의 일기</label>
-                <input className={'mr-[5px]'} id={'someone'} type={'checkbox'}  onChange={()=> handleCategoryChange('someone')}/>
-                <label className={'text-[20px] text-[#3F3F49] font-bold'} htmlFor={'someone'}>남의 일기</label>
+                {/* 라디오 버튼 그룹 */}
+                <input
+                    className={"mr-[5px]"}
+                    id={"myDaily"}
+                    type={"radio"}
+                    name="share"
+                    checked={!isShared}
+                    onChange={() => handleIsSharedChange(false)}
+                />
+                <label className={"text-[20px] text-[#3F3F49] font-bold mr-[16px]"} htmlFor={"myDaily"}>
+                    나의 일기
+                </label>
+                <input
+                    className={"mr-[5px]"}
+                    id={"someone"}
+                    type={"radio"}
+                    name="share"
+                    checked={isShared}
+                    onChange={() => handleIsSharedChange(true)}
+                />
+                <label className={"text-[20px] text-[#3F3F49] font-bold"} htmlFor={"someone"}>
+                    남의 일기
+                </label>
             </section>
             <section className={'w-full px-[24px] py-[16px] border-b border-[#E1E5E9]'}>
                 <input className={'w-full text-[20px] font-medium placeholder:text-[#A9A9B2] outline-0'}
