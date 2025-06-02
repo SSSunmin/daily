@@ -57,7 +57,7 @@ const DailyDetail = () => {
                         <p className={"text-[#A9A9B2] text-[15px] font-medium tracking-[-0.45px] "}>{detailData?.createAt.split('T')[0]}</p>
                     </section>
                     <section className={"px-[36px] py-[16px] border-b border-[#E1E5E9]"}>
-                        <img className={"w-[500px] h-[480px] object-cover mb-[10px]"} alt={"img"} src={'http://3.39.239.224:8080'+detailData?.diaryFile.srcPath}/>
+                        <img className={"w-[500px] h-[480px] object-cover mb-[10px]"} alt={"img"} src={'http://ec2-3-39-239-224.ap-northeast-2.compute.amazonaws.com:8080'+detailData?.diaryFile.srcPath}/>
                         <div className={"text-[#25252F] text-[16px] font-medium tracking-[-0.48px] whitespace-pre-line"} >{detailData?.contents}</div>
                     </section>
                     <section className={"flex gap-[16px] px-[24px] py-[16px] border-b border-[#E1E5E9]"}>
