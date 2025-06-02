@@ -13,8 +13,7 @@ interface SignUpData extends SignInData{
 
 
 export const signup = async (data:SignUpData) => {
-    const res = await Post('/auth/signup',data);
-    console.log(res);
+ await Post('/auth/signup',data);
 }
 
 export const login = async (data:SignInData)=>{
@@ -24,6 +23,5 @@ export const login = async (data:SignInData)=>{
 }
 
 export const logout = async ()=>{
-    const res =await Get('/auth/logout');
-    console.log(res);
+    await Get('/auth/logout');
 }

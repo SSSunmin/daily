@@ -1,5 +1,5 @@
 import axios, {AxiosError, AxiosRequestConfig} from 'axios';
-import {getRefreshToken, getToken, setAccessToken} from "./util/common.ts";
+import {clearToken, getRefreshToken, getToken, setAccessToken} from "./util/common.ts";
 
 export const client = axios.create({
     baseURL:'/api',
@@ -30,7 +30,7 @@ client.interceptors.response.use(
         }
 
         // 401 에러 & 아직 재시도 안 했을 때만
-        if (!originalRequest.url?.includes('/auth/refresh') && error.response?.status === 401 && !originalRequest._retry) {
+        if (!originalRequest.url?.includes('/auth/refresh') && error.response?.status === 403 && !originalRequest._retry) {
             originalRequest._retry = true;
             try {
                 const newAccessToken = await refreshAccessToken();
@@ -41,7 +41,8 @@ client.interceptors.response.use(
                 return client(originalRequest);
             } catch (refreshError) {
                 // refreshToken도 만료된 경우
-                window.location.href = "/login";
+                window.location.href = "/";
+                clearToken();
                 return Promise.reject(refreshError);
             }
         }

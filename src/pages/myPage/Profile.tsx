@@ -28,10 +28,12 @@ const Profile = ({handleShareDiaryList,handleCommentList}:{handleShareDiaryList?
     const navigate = useNavigate();
     const [showEditProfile, setShowEditProfile] = useState(false);
     const [user, setUser] = useState<UserDto | null>(null);
+
     const handleLogout = async ()=>{
         await logout();
         clearToken();
         navigate("/");
+        window.location.reload();
     }
 
     const getMyInfo = async () => {
@@ -41,7 +43,6 @@ const Profile = ({handleShareDiaryList,handleCommentList}:{handleShareDiaryList?
             handleCommentList(res.data.commentList)
             handleShareDiaryList(res.data.shareDiaryList)
         }
-        console.log(res)
     }
 
     useEffect(() => {

@@ -22,10 +22,12 @@ const Header = () => {
                 </svg>
                 <div className={"grow flex items-center justify-between"}>
                     <ul className={"flex text-[18px]"}>
-                        {isLogin && <li
+                        {isLogin && <><li
                             className={`w-[161px] text-center cursor-pointer ${location.pathname === '/my-diary' ? 'text-naturalDarkest' : 'text-naturalDark'}`}
-                            onClick={() => navigate('/my-diary')}>나만의 일기장</li>}
-                        <li className={`w-[161px] text-center cursor-pointer ${location.pathname === '/someone-diary' ? 'text-naturalDarkest':'text-naturalDark'}`} onClick={()=>navigate('/someone-diary')}>남의 일기장</li>
+                            onClick={() => navigate('/my-diary')}>나만의 일기장</li>
+                            <li className={`w-[161px] text-center cursor-pointer ${location.pathname === '/someone-diary' ? 'text-naturalDarkest':'text-naturalDark'}`} onClick={()=>navigate('/someone-diary')}>남의 일기장</li>
+
+                        </>}
                     </ul>
                     {isLogin && <button
                         className={'flex justify-center items-center px-[31px] h-[50px] bg-[#2BC09D] text-white font-bold rounded-[50px]'}

@@ -25,7 +25,7 @@ const Login = ({handleLogin}:{handleLogin:()=>void}) => {
                         <input className={'w-full outline-0 '} placeholder={"아이디 입력"} value={id} onChange={(e)=>setId(e.target.value)}/>
                     </div>
                     <div className={'border border-[#A9A9B2] h-[40px] flex items-center justify-center px-[10px] rounded-[6px]'}>
-                        <input className={'w-full outline-0 '} placeholder={"비밀번호 입력"} value={password} onChange={(e)=>setPassword(e.target.value)}/>
+                        <input type={'password'} className={'w-full outline-0 '} placeholder={"비밀번호 입력"} value={password} onChange={(e)=>setPassword(e.target.value)}/>
                     </div>
                     <button className={'flex justify-center items-center w-full h-[50px] bg-[#2BC09D] text-white font-bold rounded-[50px]'} onClick={onClickLogin} >
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
