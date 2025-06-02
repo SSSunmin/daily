@@ -37,7 +37,7 @@ const Home = () => {
                             <p className={'text-[16px] cursor-pointer'} onClick={()=>navigate('/someone-diary')}>더보기 &gt; </p>
                         </div>
                         <ul className={"bg-white w-[780px] p-[10px] flex flex-col gap-[10px] rounded-[16px] border border-[#E6E6E6]"}>
-                            {bestList.map((item)=><TopicItem key={item.diaryPid} id={item.diaryPid.toString()} creator={item.createId} title={item.title}/>)}
+                            {bestList?.map((item)=><TopicItem key={item.diaryPid} id={item.diaryPid.toString()} creator={item.createId} title={item.title}/>)}
                         </ul>
                     </section>
                     <section>
