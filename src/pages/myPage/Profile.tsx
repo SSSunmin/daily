@@ -6,6 +6,7 @@ import ProgileEditor from "./ProfileEditor.tsx";
 import {logout} from "../../service/auth.ts";
 import {Get} from "../../axios.ts";
 import {clearToken} from "../../util/common.ts";
+import {CommentListDto, ShareDiaryListDto} from "./MyPage.tsx";
 
 interface UserDto {
     "createAt": string,
@@ -19,9 +20,11 @@ interface UserDto {
     "email": string,
     "shareDiaryCnt":number,
     "notShareDiaryCnt": number,
-    "commentCnt":number
+    "commentCnt":number,
+    "commentList": CommentListDto[],
+    "shareDiaryList":ShareDiaryListDto[]
 }
-const Profile = () => {
+const Profile = ({handleShareDiaryList,handleCommentList}:{handleShareDiaryList?:(data:ShareDiaryListDto[])=>void,handleCommentList?:(data:CommentListDto[])=>void}) => {
     const navigate = useNavigate();
     const [showEditProfile, setShowEditProfile] = useState(false);
     const [user, setUser] = useState<UserDto | null>(null);
@@ -34,6 +37,10 @@ const Profile = () => {
     const getMyInfo = async () => {
         const res = await Get<{data:UserDto}>('/v1/myinfo')
         setUser(res.data)
+        if(handleCommentList && handleShareDiaryList){
+            handleCommentList(res.data.commentList)
+            handleShareDiaryList(res.data.shareDiaryList)
+        }
         console.log(res)
     }
 
