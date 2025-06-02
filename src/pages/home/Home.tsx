@@ -29,19 +29,22 @@ const Home = () => {
 
     return (
         <Layout >
-            <main className={"h-full flex px-[410px] pt-[116px] bg-[#F8F9FB]"}>
-                <section className={"mr-[40px]"}>
-                    <div className={"flex justify-between items-center text-[20px] font-bold p-[10px]"}>
-                        <p>🔥 토픽 베스트</p>
-                        <p className={'text-[16px] cursor-pointer'} onClick={()=>navigate('/someone-diary')}>더보기 &gt; </p>
-                    </div>
-                    <ul className={"bg-white w-[780px] p-[10px] flex flex-col gap-[10px] rounded-[16px] border border-[#E6E6E6]"}>
-                        {bestList.map((item)=><TopicItem key={item.diaryPid} id={item.diaryPid.toString()} creator={item.createId} title={item.title}/>)}
-                    </ul>
-                </section>
-                <section>
-                    {isLogin?  <Profile/>:<Login handleLogin={()=>setIsLogin(true)}/>}
-                </section>
+            <main className={"h-full flex justify-center pt-[116px] bg-[#F8F9FB]"}>
+                <div className={"w-[1200px] flex"}>
+                    <section className={" mr-[40px] "}>
+                        <div className={"flex justify-between items-center text-[20px] font-bold p-[10px]"}>
+                            <p>🔥 토픽 베스트</p>
+                            <p className={'text-[16px] cursor-pointer'} onClick={()=>navigate('/someone-diary')}>더보기 &gt; </p>
+                        </div>
+                        <ul className={"bg-white w-[780px] p-[10px] flex flex-col gap-[10px] rounded-[16px] border border-[#E6E6E6]"}>
+                            {bestList.map((item)=><TopicItem key={item.diaryPid} id={item.diaryPid.toString()} creator={item.createId} title={item.title}/>)}
+                        </ul>
+                    </section>
+                    <section>
+                        {isLogin?  <Profile/>:<Login handleLogin={()=>setIsLogin(true)}/>}
+                    </section>
+                </div>
+
             </main>
         </Layout>
     );

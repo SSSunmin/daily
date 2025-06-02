@@ -52,7 +52,7 @@ const DailyForm = ({closeModal}:{closeModal:()=>void}) => {
     };
 
     return (
-        <form className={'w-[800px] h-[775px] bg-white rounded-[16px]'} onSubmit={(e)=>handleSubmit(e)}>
+        <form className={'w-[800px] h-[670px] max-h-full bg-white rounded-[16px]'} onSubmit={(e)=>handleSubmit(e)}>
             <section className={'w-full flex items-center justify-between px-[24px] py-[16px] border-b border-[#E1E5E9]'}>
                 <IoMdClose className={'cursor-pointer'} size={24} onClick={closeModal}/>
                 <p className={'text-[20px] text-[#3F3F49] font-bold tracking-[-0.6px]'}>글쓰기</p>
@@ -93,13 +93,13 @@ const DailyForm = ({closeModal}:{closeModal:()=>void}) => {
                        onChange={(e:ChangeEvent<HTMLInputElement>)=>{setTitle(e.target.value)}}
                 />
             </section>
-            <section className={'h-[513px] px-[36px] py-[16px]'}>
+            <section className={'h-[513px] max-h-[60%] px-[36px] py-[16px] '}>
                 <textarea   value={contents}
                             onChange={(e:ChangeEvent<HTMLTextAreaElement>)=>{setContents(e.target.value)}}
                             className={'w-full h-full outline-0 resize-none'}
                             placeholder={'내용을 입력해주세요.'}/>
             </section>
-            <section className={'flex  gap-[10px] w-full h-[60px] bg-[#EDEFF2] rounded-b-[16px] px-[24px] py-[16px]'}>
+            <section className={'flex gap-[10px] w-full h-[60px] bg-[#EDEFF2] rounded-b-[16px] px-[24px] py-[16px]'}>
                 <input id={"file"} type={"file"} className={'hidden'} onChange={handleFileChange}/>
                 <label htmlFor={'file'}>
                     <svg className={'cursor-pointer'} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

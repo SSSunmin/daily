@@ -34,27 +34,30 @@ const SomeoneDaily = () => {
     }, []);
     return (
         <Layout>
-            <main className={"h-full px-[410px] pt-[116px] pb-[36px] bg-[#F8F9FB]"}>
-                <div className={'flex h-[calc(100%-50px)]'}>
-                    <section className={"mr-[40px]"}>
-                        <div className={"w-[780px] grid grid-cols-2 gap-[16px]"}>
-                            {dailyList.map((item)=><DailyCard id={item.diaryPid} image={item.diaryFile.srcPath} title={item.title} text={item.contents}/>)}
-                        </div>
-                    </section>
-                    <section>
-                        {isLogin?  <Profile/>:<Login handleLogin={()=>setIsLogin(true)}/>}
-                    </section>
+            <main className={"h-full flex justify-center pt-[116px] pb-[36px] bg-[#F8F9FB]"}>
+                <div className={'flex flex-col w-[1200px]'}>
+                    <div className={'flex h-[calc(100%-50px)]'}>
+                        <section className={"mr-[40px]"}>
+                            <div className={"w-[780px] grid grid-cols-2 gap-[16px]"}>
+                                {dailyList.map((item)=><DailyCard id={item.diaryPid} image={item.diaryFile.srcPath} title={item.title} text={item.contents}/>)}
+                            </div>
+                        </section>
+                        <section>
+                            {isLogin?  <Profile/>:<Login handleLogin={()=>setIsLogin(true)}/>}
+                        </section>
+                    </div>
+
+                    <div className={'mt-auto'}>
+                        {
+                            dailyList.length > 0 &&  <Pagination
+                                currentPage={page}
+                                totalPages={totalPages}
+                                onPageChange={(page) => setPage(page)}
+                            />
+                        }
+                    </div>
                 </div>
 
-                <div className={'mt-auto'}>
-                    {
-                        dailyList.length > 0 &&  <Pagination
-                            currentPage={page}
-                            totalPages={totalPages}
-                            onPageChange={(page) => setPage(page)}
-                        />
-                    }
-                </div>
             </main>
         </Layout>
     );

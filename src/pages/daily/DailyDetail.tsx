@@ -50,8 +50,8 @@ const DailyDetail = () => {
 
     return (
         <Layout>
-            <main className={"flex min-h-full px-[550px] pt-[96px] pb-[26px] bg-[#F8F9FB]"}>
-                <div className={"w-full rounded-[18px] border border-[#E6E6E6] bg-white"}>
+            <main className={"flex justify-center min-h-full pt-[96px] pb-[26px] bg-[#F8F9FB]"}>
+                <div className={"w-[1000px] rounded-[18px] border border-[#E6E6E6] bg-white"}>
                     <section className={"px-[24px] py-[16px] border-b border-[#E1E5E9]"}>
                         <p className={"mb-[10px] text-[#3F3F49] text-[20px] font-semibold tracking-[-0.6px]"}>{detailData?.title}</p>
                         <p className={"text-[#A9A9B2] text-[15px] font-medium tracking-[-0.45px] "}>{detailData?.createAt.split('T')[0]}</p>
