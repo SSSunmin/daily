@@ -8,7 +8,7 @@ export default defineConfig({
     cors: true,
     proxy: {
       '/api': {
-        target: 'http://3.39.239.224:8080',
+        target: 'http://ec2-3-39-239-224.ap-northeast-2.compute.amazonaws.com',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
         secure: false,
