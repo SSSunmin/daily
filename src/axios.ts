@@ -1,8 +1,13 @@
 import axios, {AxiosError, AxiosRequestConfig} from 'axios';
 import {clearToken, getRefreshToken, getToken, setAccessToken} from "./util/common.ts";
 
+const baseURL =
+    import.meta.env.MODE === 'development'
+        ? '/api'
+        : 'http://ec2-3-39-239-224.ap-northeast-2.compute.amazonaws.com:8080';
+
 export const client = axios.create({
-    baseURL:'/api',
+    baseURL
 })
 
 // 토큰 재발급 요청 함수 (별도의 axios 인스턴스 사용)
